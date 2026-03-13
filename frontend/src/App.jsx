@@ -147,7 +147,7 @@ export default function App() {
                       How can I help you today?
                     </h2>
                     <p className="text-slate-600 text-sm mt-1 font-light">
-                      Start a conversation — I'm connected to GPT-4
+                      Start a conversation — I'm connected to Groq AI
                     </p>
                   </div>
 
