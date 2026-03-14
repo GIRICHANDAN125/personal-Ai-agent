@@ -23,7 +23,7 @@ app = FastAPI(
 # CORS — allow Node backend to call this service
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5000", "http://localhost:3000"],
+    allow_origins=["http://localhost:5000", "http://localhost:3000","https://chandu-backend.onrender.com"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
