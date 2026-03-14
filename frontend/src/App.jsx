@@ -102,7 +102,7 @@ export default function App() {
                   <div className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-glow animate-pulse" />
                 </div>
                 <span className="font-semibold text-sm tracking-wide bg-gradient-to-r from-accent to-glow bg-clip-text text-transparent">
-                  Chandu
+                  ChanduChat
                 </span>
               </div>
             </div>
@@ -147,7 +147,7 @@ export default function App() {
                       How can I help you today?
                     </h2>
                     <p className="text-slate-600 text-sm mt-1 font-light">
-                      Start a conversation — I'm connected to Groq AI
+                      Start a conversation — I'm Chandu, your AI assistant
                     </p>
                   </div>
 
