@@ -26,7 +26,7 @@ app.use(morgan('dev'))
 
 // ── Routes ────────────────────────────────────────────────────────────────────
 app.get('/', (req, res) => {
-  res.json({ status: 'ok', message: 'NeuralChat Backend running', port: PORT })
+  res.json({ status: 'ok', message: 'ChanduChat Backend running', port: PORT })
 })
 
 app.use('/api', chatRoutes)
@@ -49,13 +49,32 @@ mongoose.connect(MONGO_URI)
   .then(() => {
     console.log('✅ MongoDB connected')
     app.listen(PORT, () => {
-      console.log(`🚀 Backend running at http://localhost:${PORT}`)
+      console.log(`🚀 ChanduChat Backend running at http://localhost:${PORT}`)
+      startKeepAlive()
     })
   })
   .catch(err => {
     console.error('❌ MongoDB connection failed:', err.message)
     app.listen(PORT, () => {
       console.log(`⚠️  Backend running WITHOUT DB at http://localhost:${PORT}`)
+      startKeepAlive()
     })
   })
-  
+
+// ── Keep alive (prevent Render free tier sleep) ────────────────────────────
+function startKeepAlive() {
+  const BACKEND_URL = 'https://chandu-backend.onrender.com'
+  const AI_URL = 'https://ai-service-7pie.onrender.com/health'
+
+  setInterval(async () => {
+    try {
+      await fetch(BACKEND_URL)
+      await fetch(AI_URL)
+      console.log('✅ Keep alive ping sent')
+    } catch (e) {
+      console.log('⚠️ Keep alive failed:', e.message)
+    }
+  }, 14 * 60 * 1000) // every 14 minutes
+
+  console.log('🔄 Keep alive started')
+}
