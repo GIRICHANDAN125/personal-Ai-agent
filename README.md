@@ -59,80 +59,6 @@ ai-fullstack-agent/
 
 ---
 
-## Quick Start
-
-### 1. MongoDB Atlas Setup
-1. Create free account at https://cloud.mongodb.com
-2. Create a free M0 cluster
-3. Create a database user (username + password)
-4. Whitelist your IP (Network Access → Add IP)
-5. Copy the connection string (Connect → Drivers → Node.js)
-
-### 2. Environment Variables
-
-**backend/.env**
-```env
-PORT=5000
-MONGODB_URI=mongodb+srv://<user>:<pass>@cluster0.xxxxx.mongodb.net/neural-chat?retryWrites=true&w=majority
-AI_SERVICE_URL=http://localhost:8000
-FRONTEND_URL=http://localhost:3000
-```
-
-**ai-service/.env**
-```env
-OPENAI_API_KEY=sk-...your-openai-key...
-MODEL_NAME=gpt-4o-mini
-MAX_TOKENS=2048
-TEMPERATURE=0.7
-```
-
-**frontend/.env**
-```env
-VITE_API_URL=http://localhost:5000/api
-```
-
-### 3. Install & Run
-
-**Terminal 1 — AI Service (Python)**
-```bash
-cd ai-service
-python -m venv venv
-source venv/bin/activate        # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-uvicorn main:app --reload --port 8000
-```
-
-**Terminal 2 — Backend (Node.js)**
-```bash
-cd backend
-npm install
-cp .env.example .env            # then fill in your values
-npm run dev
-```
-
-**Terminal 3 — Frontend (React)**
-```bash
-cd frontend
-npm install
-cp .env.example .env            # optional, defaults to localhost
-npm run dev
-```
-
-Open http://localhost:3000 🎉
-
----
-
-## API Reference
-
-### Node.js Backend (port 5000)
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/chat` | Send message, get AI reply |
-| GET | `/api/history/:sessionId` | Get session messages |
-| GET | `/api/sessions` | List all sessions |
-| DELETE | `/api/sessions/:sessionId` | Delete a session |
-| GET | `/api/health` | Health check |
 
 ### Python AI Service (port 8000)
 
@@ -141,27 +67,6 @@ Open http://localhost:3000 🎉
 | POST | `/chat` | LLM call |
 | GET | `/health` | Health check |
 | GET | `/docs` | Swagger UI (auto-generated) |
-
----
-
-## Upgrading to RAG / Tools
-
-**Add vector search (RAG):**
-1. `pip install chromadb` or use MongoDB Atlas Vector Search
-2. Embed user query → retrieve relevant docs
-3. Pass `context` to `llm_service.chat()`
-
-**Add tools/function calling:**
-1. Define tool schemas in `llm_service.build_tools()`
-2. Implement tool executors
-3. Handle `tool_calls` in `llm_service.chat()`
-
-**Switch to GPT-4o:**
-```
-MODEL_NAME=gpt-4o
-```
-
----
 
 ## Tech Stack
 
